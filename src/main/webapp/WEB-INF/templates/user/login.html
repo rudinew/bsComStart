@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>bee.com</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/static/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- MetisMenu CSS -->
+    <link href="../static/vendor/metisMenu/metisMenu.min.css" th:href="@{/static/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="../static/dist/css/sb-admin-2.css" th:href="@{/static/dist/css/sb-admin-2.css}" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" th:href="@{/static/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span th:text = "#{page.header.personalOffice}" > </span></h3>
+                    </div>
+                    <div class="panel-body">
+
+
+                            <!-- <c:url value="/j_spring_security_check" var="loginUrl" /> -->
+                        <!--  <form action="#" th:action="@{/j_spring_security_check}" th:object="${loginUrl}" method="post">
+                          <form role="form" action="${loginUrl}" method="POST">-->
+                          <form th:action="@{/j_spring_security_check}" method="post"> <!-- action="@{/j_spring_security_check}" -->
+
+                              <fieldset>
+                                  <div class="form-group">
+                                      <input class="form-control" th:placeholder="#{page.column.login}" name="j_login" type="text"  autofocus="autofocus" value="admin"/> <!-- autofocus -->
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" th:placeholder="#{page.column.password}"  name="j_password" type="password" value="password" />  <!-- value="" -->
+                                    </div>
+                                  <div class="form-group">
+                                      <div class="col-xs-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="remember-me" type="checkbox" value="true" /><span th:text = "#{page.column.rememberme}" > </span>
+                                        </label>
+                                    </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                    <a th:href="@{/signup}">
+                                      <button type="button" class="btn btn-default" ><span th:text = "#{page.button.register}" > </span> </button>
+                                    </a>
+                                      </div>
+                                      </div>
+
+                                    <input type="submit" class="btn btn-lg btn-success btn-block" th:value="#{page.button.logIn}" />
+
+
+
+
+                                    <!--   <c:if test="${param.error ne null}">
+                                          <br/>
+                                          <p><b>Невірний пароль або логін!</b></p>
+
+                                    </c:if>-->
+
+                                    <p th:if="${param.error ne null}"><b><span th:text = "#{login.error}" > </span></b></p> <!-- ${loginError} ${param.error ne null}-->
+
+                                </fieldset>
+
+                        </form>
+                       <!--   </form>-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script type="text/javascript"  src="../static/vendor/jquery/jquery.min.js" th:src="@{/static/vendor/jquery/jquery.min.js}" ></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script type="text/javascript"  src="../static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{/static/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script type="text/javascript"  src="../static/vendor/metisMenu/metisMenu.min.js" th:src="@{/static/vendor/metisMenu/metisMenu.min.js}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script type="text/javascript"  src="../static/dist/js/sb-admin-2.js" th:src="@{/static/dist/js/sb-admin-2.js}"></script>
+
+
+
+</body>
+
+</html>

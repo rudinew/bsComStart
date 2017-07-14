@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="bsComStart:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="bs.com.war">
+      <element id="artifact" artifact-name="bsComStart:war exploded" />
+    </root>
+  </artifact>
+</component>
