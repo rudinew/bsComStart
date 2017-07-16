@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.util.WebUtils;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -31,7 +30,8 @@ public class FirmController {
     private static final Logger LOG = LoggerFactory.getLogger(FirmController.class);
 
     /*http://stackoverflow.com/questions/16894900/spring-autowiring-service-doesnt-work-in-my-controller*/
-    @Resource(name="firmsService")
+   // @Resource(name="firmsService")
+    @Autowired
     private FirmsService firmsService;
     //журнал дій
     @Autowired
@@ -61,7 +61,7 @@ public class FirmController {
      * @param name
      * @return
      */
-   @RequestMapping(value = "/firms/new", method = RequestMethod.POST)
+ /*  @RequestMapping(value = "/firms/new", method = RequestMethod.POST)
     public String insertForm(String name, HttpServletRequest request) {
        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
        Users users = userService.getUserByLogin(user.getUsername());
@@ -83,6 +83,8 @@ public class FirmController {
        return "redirect:/cards";
 
    }
+   */
+
     /**
      * удаление всей инфы по фирме
      *
