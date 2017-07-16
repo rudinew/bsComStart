@@ -1,0 +1,83 @@
+https://ru.stackoverflow.com/questions/654540/spring-mvc-%D0%BF%D0%B5%D1%80%D0%B5%D0%B4%D0%B0%D1%87%D0%B0-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-%D0%B2-%D0%BC%D0%BE%D0%B4%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5-%D0%BE%D0%BA%D0%BD%D0%BE-bootstrap?newreg=65c6ba006fa044328dbe7f6dee335c72
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit user</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="firstNameInput">First name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="firstNameInput" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="lastNameInput">Last name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="lastNameInput" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="emailInput">E-mail</label>
+            <div class="col-sm-9">
+              <input type="email" class="form-control" id="emailInput" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-10">
+              <button type="submit" class="btn btn-default">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="user" items="users">
+      <tr id="user-${user.id}">
+        <td>${user.firstName}</td>
+        <td>${user.lastName}</td>
+        <td>${user.email}</td>
+        <td>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-user-id="${user.id}">Edit</button>
+        </td>
+      </tr>
+    </c:forEach>
+  </tbody>
+</table>
+
+$("#myModal").on('show.bs.modal', function(e) {
+  var userId = $(e.relatedTarget).data('user-id');
+
+  var cols = $('#user-' + userId + ' td');
+  var firstName = $(cols[0]).text();
+  var lastName = $(cols[1]).text();
+  var email = $(cols[2]).text();
+
+  $('#firstNameInput').val(firstName);
+  $('#lastNameInput').val(lastName);
+  $('#emailInput').val(email);
+});
+
+$("#myModal").on('hidden.bs.modal', function() {
+  var form = $(this).find('form');
+  form[0].reset();
+});
