@@ -97,7 +97,7 @@ public class AppConfig extends WebMvcConfigurerAdapter /*implements ApplicationC
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-        adapter.setShowSql(false); //15.06.2017 не показывать sql
+        adapter.setShowSql(true); //false 15.06.2017 не показывать sql
         adapter.setDatabasePlatform(sqlDialect);
 
         return adapter;

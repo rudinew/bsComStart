@@ -2,6 +2,7 @@ package com.bs.backend.service;
 
 import com.bs.backend.domain.Firms;
 import com.bs.backend.domain.Users;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
@@ -13,8 +14,8 @@ public interface FirmsService {
     List<Firms> getFirmsAll();
     List<Firms> getFirmsByUsersOrderByNameAsc(Users users);
     List<Firms> getFirmsAllOrderByNameAsc();
-    void saveFirm(Firms firms);
-    void saveAndFlushFirms(Firms firms);
+    void saveFirm(Firms firms, User user);
+    void saveAndFlushFirms(Firms firms, User user);
     void deleteFirm(Long cId);
 
 

@@ -65,7 +65,15 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h3 class="page-header text-primary"><span th:text="#{index.menu.firms}"></span></h3>
+                        <h3 class="page-header text-primary"><span th:text="#{index.menu.firms}"></span>
+                            <a th:href="@{/firms/new}"
+                               class="btn btn-outline btn-primary btn-md"
+                               aria-label="Right Align" title="Новий">
+                                <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
+
+                            </a>
+                        </h3>
+
 						
 
 	<!--	<div>
@@ -94,19 +102,38 @@
                                     </thead>
                                     <tbody>
                                     <tr class="odd gradeX" th:each="firm : ${firms}">
-                                        <td><a th:href="${'/firms/'+ firm.id}"><span th:text = "${firm.name}">  </span> </a> </td>
+                                        <td><a th:href="${'/firms/'+ firm.id + '/edit'}"><span th:text = "${firm.name}">  </span> </a> </td>
 
                                         <td>
                                             <div >
-                                                <a th:href="${'/firms/'+ firm.id}"
+
+                                                <a th:href="${'/firms/'+ firm.id + '/edit'}"
+                                                       class="btn btn-outline btn-primary btn-xs"
+                                                       aria-label="Right Align" title="Редагувати">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true" ></span>
+                                               </a>
+
+
+                                             <!--   <a href="#" th:attr="data-href=${'/firms/'+ firm.id}"
                                                    class="btn btn-outline btn-primary btn-xs"
-                                                   aria-label="Right Align" title="Редагувати"> <!-- btn btn-outline btn-danger btn-xs -->
+                                                   aria-label="Right Align" title="Редагувати"
+                                                   data-toggle="modal" data-target="#confirm-edit"
+
+                                                >
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true" ></span>
                                                 </a>
+                                                -->
+
+                                                 <!-- Button trigger modal
+                                                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#confirm-edit">
+                                                    Launch demo modal
+                                                </button>
+                                                 -->
 
                                                 <a href="#" th:attr="data-href=${'/firms/'+ firm.id + '/delete'}"
                                                    class="btn btn-outline btn-danger btn-xs"
-                                                   data-toggle="modal" data-target="#confirm-delete"  id = "modalOpen"  aria-label="Right Align" title="Видалити"> <!-- btn btn-outline btn-danger btn-xs -->
+                                                   data-toggle="modal" data-target="#confirm-delete"
+                                                   id = "modalOpen"  aria-label="Right Align" title="Видалити"> <!-- btn btn-outline btn-danger btn-xs -->
                                                     <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true" ></span>
                                                 </a>
                                             </div>
@@ -134,69 +161,12 @@
     </div>
     <!-- /#wrapper -->
 
-<!-- https://itchief.ru/lessons/bootstrap-3/bootstrap-3-modal-window -->
-<!-- HTML-код модального окна -->
-<div id="confirm-delete" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Заголовок модального окна -->
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">
-                    <button type="button" class="btn btn-warning btn-circle"><i class="fa fa-times"></i>
-                    </button>
-                    Попередження
-                </h4>
-            </div>
-            <!-- Основное содержимое модального окна -->
-            <div class="modal-body">
-                Ви дійсно бажаєте видалити клієнта та всі його внесені документи?
-            </div>
-            <!-- Футер модального окна -->
-            <div class="modal-footer">
+<!-- модального окна УДАЛЕНИЕ-->
+<div th:include="modals/deleteform" th:remove="tag" />
 
-                <a type="button" class="btn btn-primary btn-ok">Так</a>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Ні</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- https://itchief.ru/lessons/bootstrap-3/bootstrap-3-modal-window -->
-<!-- HTML-код модального окна -->
-<div id="confirm-insert" class="modal fade" role="dialog" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Заголовок модального окна -->
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">
-                    <button type="button" class="btn btn-warning btn-circle"><i class="fa fa-times"></i>
-                    </button>
-                    Попередження
-                </h4>
-            </div>
-            <!-- Основное содержимое модального окна -->
-            <div class="modal-body">
-                <form class="firm" name="firm" id="FirmForm" method="post"  onsubmit="FormSendOK()">
-                    <label>Назва фірми</label>
-                    <br>
-                    <input type = "text" class="form-control"  name="name"  />
-                    <br>
-                </form>
-            </div>
-            <!-- Футер модального окна -->
-            <div class="modal-footer">
-                <input class="btn btn-primary btn-ok" id="submit" type="submit" value="Зберегти">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Відміна</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
+<!-- модального окна ВСТАВКА/РеДАКТИРОВАНИЕ
+<div th:include="modals/editfirmform" th:remove="tag" />
+-->
 
 <!-- Скрипт, вызывающий модальное окно после загрузки страницы -->
 <!-- <script type="text/javascript">
@@ -205,26 +175,21 @@
     });
 </script> -->
 
-
 <script type="text/javascript">
     $(document).ready(function(){
 
-        //при нажатию на любую кнопку, имеющую класс .btn
         $("#modalOpen").click(function() {
             //открыть модальное окно с id="myModal"
             $("#myModalBox").modal('show');
             e.preventDefault();
         });
 
+
         //подтверждение удаления
         $("#confirm-delete").on('show.bs.modal', function(e) {
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
 
-        //подтверждение вставки
-        $("#confirm-insert").on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-        });
 
         $('#dataTables-example').DataTable({
             responsive: true
@@ -235,6 +200,53 @@
 </script>
 
 
+<!--
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $("#modalOpen").click(function() {
+            //открыть модальное окно с id="myModal"
+            $("#myModalBox").modal('show');
+            e.preventDefault();
+        });
+
+
+        //подтверждение удаления
+        $("#confirm-delete").on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+
+        $("#confirm-edit").on('show.bs.modal', function(e) {
+            var firmId = $(e.relatedTarget).data('firm-id');
+
+            var cols = $('#firm-' + firmId + ' td');
+            var name = $(cols[0]).text();
+
+            $('#nameInput').val(name);
+
+        });
+
+        $("#confirm-edit").on('hidden.bs.modal', function() {
+            var form = $(this).find('form');
+            form[0].reset();
+        });
+
+        //подтверждение редактирования
+        $("#confirm-edit").on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+
+
+
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+
+
+</script>
+
+-->
     <!-- Bootstrap Core JavaScript -->
     <script type="text/javascript" src="static/vendor/bootstrap/js/bootstrap.min.js" th:src="@{static/vendor/bootstrap/js/bootstrap.min.js}"></script>
 
